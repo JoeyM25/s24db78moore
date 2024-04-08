@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+
+  - var image_names = ["plant1", "plant2", "plant3", "plant4", "plant5"]
+  - for (let i=0; i<3; i++)
+    - var randNum = Math.floor(Math.random()*5)
+    - var indexedName = image_names[randNum]
+    img(src=`/images/${indexedName}.png`, alt=`${indexedName}`, height="300", width="300") 

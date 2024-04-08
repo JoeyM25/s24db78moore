@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  -
+    var houseplants = [{scientific_name: "Monstera deliciosa", common_name: "Monstera", difficulty: 3}, 
+    {scientific_name: "Epipremmum aureum", common_name: "Pothos", difficulty: 1}, 
+    {scientific_name: "Colocasia", common_name: "Elephant ear", difficulty: 7}]
+
+  .container-fluid
+    .row
+      each value in houseplants
+        .col-sm-2
+          div
+            p Scientific Name: #{value.scientific_name}
+            p Common Name: #{value.common_name}
+            p Difficulty: #{value.difficulty}

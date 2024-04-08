@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  
+  h1= title
+  p Rows: #{query.rows}
+  p Columns: #{query.cols}
+
+  - var rows = Number(query.rows)
+  - var cols = Number(query.cols)
+
+  if Number.isInteger(rows) == false || Number.isInteger(cols) == false
+    p Columns or Rows are not integers
+
+  else if rows <= 3 || rows >= 13
+    p Rows are out of range
+  
+  else if cols <= 3 || cols >= 13
+    p Columns are out of range
+
+  else 
+    table#outer
+      - for(let i=0; i<rows; i++)
+        tr#middle
+          - for(let j=0; j<cols; j++)
+            td= Math.min(i, j) + 1
+
+  

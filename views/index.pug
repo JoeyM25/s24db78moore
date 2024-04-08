@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the page
+
+  button(type="button", class="btn btn-primary", onclick="double()") I am a button
+  div(id="double") Up the amount
+
+  script.
+    var value = 0
+    var power = 1
+    const double = () => {
+      value++
+      power *= 2
+      document.getElementById("double").innerHTML = "Two to the power of " + (power / 2) + " is " + value
+    }
+
+  a(href="/houseplant") Click Me for Houseplant Results
