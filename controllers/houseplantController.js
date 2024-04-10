@@ -17,8 +17,21 @@ exports.houseplant_detail = function(req, res) {
 };
 
 // Handle Houseplant create on POST.
-exports.houseplant_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Houseplant create POST');
+exports.houseplant_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new Houseplant();
+    document.scientific_name = req.body.scientific_name;
+    document.common_name = req.body.common_name;
+    document.difficulty = req.body.difficulty;
+
+    try{
+        let result = await document.save();
+        res.send(result);
+    }
+    catch(err){
+        res.status(500);
+        res.send('{"error": ${err}}');
+    }
 };
 
 // Handle Houseplant delete from on DELETE.
