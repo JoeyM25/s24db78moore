@@ -1,10 +1,9 @@
 var express = require('express');
+const houseplant_controllers = require('../controllers/houseplantController');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('houseplant', { title: 'Search results for houseplants' });
-});
+/* GET Houseplants page. */
+router.get('/', houseplant_controllers.houseplant_view_all_Page);
 
 module.exports = router;
 
