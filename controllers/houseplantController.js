@@ -12,8 +12,16 @@ exports.houseplant_list = async function(req, res) {
 };
 
 // for a specific Houseplant.
-exports.houseplant_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Houseplant detail: ' + req.params.id);
+exports.houseplant_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Houseplant.findById(req.params.id)
+        res.send(result)
+    }
+    catch(error){
+        res.status(500)
+        res.send('{"Error": document for id ${req.params.id} not found');
+    }
 };
 
 // Handle Houseplant create on POST.
