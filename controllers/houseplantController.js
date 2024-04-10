@@ -1,7 +1,14 @@
-var Houselpant = require('../models/houseplant');
+var Houseplant = require('../models/houseplant');
 // List of all Houseplants
-exports.houseplant_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Houseplant list');
+exports.houseplant_list = async function(req, res) {
+    try{
+        theHouseplants = await Houseplant.find();
+        res.send(theHouseplants)
+    }
+    catch(err){
+        res.status(500);
+        res.send('{"error":${err}}');
+    }
 };
 
 // for a specific Houseplant.
