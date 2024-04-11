@@ -43,13 +43,53 @@ exports.houseplant_create_post = async function(req, res) {
 };
 
 // Handle Houseplant delete from on DELETE.
-exports.houseplant_delete = function(req, res) {
-    res.send('NOT IMPLEMENTED: Houseplant delete DELETE ' + req.params.id);
+exports.houseplant_delete =  async function(req, res) {
+    console.log("delete" + req.params.id)
+    try {
+        result = await Houseplant.findByIdAndDelete(req.params.id)
+        console.log("Removed" + result)
+        res.send(result)
+    }
+    catch(err){
+        res.status(500)
+        res.send('("Error":Error deleting ${err}}');
+    }
 };
 
 // Handle Houseplant update form on PUT.
-exports.houseplant_update_put = function(req, res) {
-    res.send('NOT IMPLEMENTED: Houseplant update PUT' + req.params.id);
+exports.houseplant_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await Houseplant.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.scientific_name)
+        toUpdate.scientific_name = req.body.scientific_name;
+    if(req.body.common_name) toUpdate.common_name = req.body.common_name;
+    if(req.body.difficulty) toUpdate.difficulty = req.body.difficulty;
+    let result = await toUpdate.save();
+    console.log("Success " + result)
+    res.send(result)
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
+        failed`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.houseplant_view_one_page = async function(req, res){
+    console.log("Single view for id " + req.query.id)
+    try{
+        result = await Houseplant.findById(req.query.id)
+        res.render('houseplantdetail', 
+            {title:'Houseplant Detail', toShow: result});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error':${err}'}`);
+    }
 };
 
 // VIEWS
