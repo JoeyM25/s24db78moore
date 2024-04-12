@@ -27,7 +27,4 @@ router.get('/houseplants/:id', houseplant_controller.houseplant_detail);
 // GET request for list of all Houseplant items.
 router.get('/houseplants', houseplant_controller.houseplant_list);
 
-// GET detail houseplant page
-router.get('/detail', houseplant_controller.houseplant_view_one_page);
-
 module.exports = router;

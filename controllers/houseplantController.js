@@ -83,6 +83,45 @@ exports.houseplant_view_one_page = async function(req, res) {
     }
 };
 
+// Handle building the view for creating a houseplant
+exports.houseplant_create_Page = function(req, res){
+    console.log("create view")
+    try{
+        res.render('houseplantcreate', {title: 'Houseplant Create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`error:'${err}'}`)
+    }
+};
+
+//Handle building the view for updating a houseplant
+exports.houseplant_update_Page = async function(req, res){
+    console.log("update view for item " + req.query.id)
+    try{
+        let result = await Houseplant.findById(req.query.id)
+        res.render('houseplantupdate', {title: 'Houseplant Update', toShow: result});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error':${err}'}`)
+    }
+};
+
+// Handle a delete one view with id from query
+exports.houseplant_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+        let result = await Houseplant.findById(req.query.id)
+        res.render('houseplantdelete', { title: 'Houseplant Delete', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+//VIEWS
 // Handle showing all houseplants
 exports.houseplant_view_all_Page = async function(req, res) {
     try {
@@ -93,3 +132,4 @@ exports.houseplant_view_all_Page = async function(req, res) {
         res.send(`{"error": "${err}"}`);
     }
 };
+
