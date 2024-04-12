@@ -2,13 +2,16 @@ extends layout
 
 block content
   h1= title
-  -
-    var houseplants = results
-  .container-fluid
-    .row
-      each value in houseplants
-        .col-sm-2
-          div
-            p Scientific Name: #{value.scientific_name}
-            p Common Name: #{value.common_name}
-            p Difficulty: #{value.difficulty}
+  - let houseplants = results;
+  div(class="container-fluid")
+    div(class="row")
+      each item in houseplants
+        - let destination = `dispatch(\"/houseplant/update/?id=${item._id}\")`
+        div(class="row-sm-2", class ="m-1") Houseplant #{item.scientific_name} also known as #{item.common_name} is a #{item.difficulty} on a scale of 1-10 to take care of.
+          br
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
+
+  script. 
+    function dispatch(path){
+      window.location.href=path
+    }
