@@ -2,14 +2,23 @@ extends layout
 
 block content
   h1= title
-  - let houseplants = results;
+  -
+    let houseplants = results;
+    let createDest = `dispatch(\"/houseplant/create\")`
+
+  button.btn(class="btn-success ml-1", onclick=createDest) Create A New Houseplant
   div(class="container-fluid")
     div(class="row")
       each item in houseplants
-        - let destination = `dispatch(\"/houseplant/update/?id=${item._id}\")`
+        -
+          let updateDest = `dispatch(\"/houseplant/update/?id=${item._id}\")`
+          let detailDest = `dispatch(\"/houseplant/detail/?id=${item._id}\")`
+          let deleteDest = `dispatch(\"/houseplant/delete/?id=${item._id}"\)`
         div(class="row-sm-2", class ="m-1") Houseplant #{item.scientific_name} also known as #{item.common_name} is a #{item.difficulty} on a scale of 1-10 to take care of.
           br
-          button.btn(class="btn-primary ml-1", onclick=destination) Update
+          button.btn(class="btn-primary ml-1", onclick=detailDest) Details
+          button.btn(class="btn-info ml-1", onclick=updateDest) Update
+          button.btn(class="btn-danger ml-1", onclick=deleteDest) Delete
 
   script. 
     function dispatch(path){

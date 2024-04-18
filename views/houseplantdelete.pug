@@ -29,7 +29,7 @@ block content
         script.
             function cancel() {
                 // Go back to the home page for the houseplant collection
-                window.location.href='/houseplants'
+                window.location.href='/houseplant'
             }
         script.
             function deleteOnid() {
@@ -41,7 +41,7 @@ block content
                     return resp.json(); // or resp.text() or whatever the server sends
                 }).then((body) => {
                     alert("Delete succeeded")
-                    window.location.href='/houseplants'
+                    window.location.href='/houseplant'
                     // TODO handle body
                 }).catch((error) => {
                     // TODO handle error
